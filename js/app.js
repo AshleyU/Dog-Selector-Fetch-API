@@ -15,17 +15,18 @@ function fetchData(url) {
 
 fetchData('https://dog.ceo/api/breeds/list')
   .then(data => generateOptions(data.message))
+  .then(fetchBreedImage())
 
 fetchData('https://dog.ceo/api/breeds/image/random')
-  .then(data => generateImage(data.message))
+  .then(data => fetchBreedImage(data.message))
 
 // ------------------------------------------
 //  HELPER FUNCTIONS
 // ------------------------------------------
 
 function checkStatus(response) {
-	if(response.ok)
-		return Promise.resolve(response); {
+	if(response.ok) {
+		return Promise.resolve(response);
 	} else {
 		return Promise.reject(new Error(response.statusText));
 	}
@@ -38,17 +39,18 @@ function generateOptions(data) {
 	select.innerHTML = options;
 }
 
-function generateImage(data) {
-  const html = `
-    <img src='${data}' alt>
-    <p>Click to view images of ${select.value}s</p>
-    `;
-  card.innerHTML = html;
-}
+// function generateImage(data) {
+//   const html = `
+//     <img src='${data}' alt>
+//     <p>Click to view images of ${select.value}s</p>
+//     `;
+//   card.innerHTML = html;
+// }
 
 function fetchBreedImage() {
-	const breed = select.value;
-	const img = card.querySelector('img');
+	const breed = select.value || 'affenpinscher';
+    card.innerHTML = '<img><p></p>'
+  	const img = card.querySelector('img');
 	const p = card.querySelector('p');
 
 	fetchData(`https://dog.ceo/api/breed/${breed}/images/random`)
