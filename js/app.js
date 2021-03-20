@@ -13,12 +13,17 @@ function fetchData(url) {
 		.catch(error => console.log('looks like there was a problem', error))
 }
 
-fetchData('https://dog.ceo/api/breeds/list')
-  .then(data => generateOptions(data.message))
-  .then(fetchBreedImage())
+Promise.all([
+  fetchData('https://dog.ceo/api/breeds/list'),
+  fetchData('https://dog.ceo/api/breeds/image/random')  
+])
+.then(data => {
+  const breedList = data[0].message;
+  const randomImage = data[1].message;
 
-fetchData('https://dog.ceo/api/breeds/image/random')
-  .then(data => fetchBreedImage(data.message))
+  generateOptions(breedList);
+  fetchBreedImage(randomImage);
+})
 
 // ------------------------------------------
 //  HELPER FUNCTIONS
