@@ -6,7 +6,7 @@
   An app where you can select a dog breed from a drop down to display a random dog picture. Calls the Dog API to get the pictures.
     <br />
     <br />
-    <a href="https://react-chore-bot.herokuapp.com/">View Demo</a>
+    <a href="http://localhost:3000/Dog-Selector-Fetch-API/index.html">View Demo</a>
   </p>
 </div>
 
